@@ -1,40 +1,68 @@
 package com.tav.bazar.model;
 
-public class Frete {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Frete")
+public class Frete  implements Serializable {
 	
+    private static final long serialVersionUID = 1L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	int id_Pedidos;
-	double preco;
 	
-	public Frete(int id, int id_Pedidos, double preco) {
+	@OneToOne
+	@JoinColumn(name="id_pedidos",nullable = true)
+	Pedidos pedidos;
+	
+	@Column(name="preco")
+	double preco;
+
+	public Frete(int id, Pedidos pedidos, double preco) {
 		super();
 		this.id = id;
-		this.id_Pedidos = id_Pedidos;
+		this.pedidos = pedidos;
 		this.preco = preco;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getId_Pedidos() {
-		return id_Pedidos;
+
+	public Pedidos getPedidos() {
+		return pedidos;
 	}
-	public void setId_Pedidos(int id_Pedidos) {
-		this.id_Pedidos = id_Pedidos;
+
+	public void setPedidos(Pedidos pedidos) {
+		this.pedidos = pedidos;
 	}
-	public double getFrete() {
+
+	public double getPreco() {
 		return preco;
 	}
-	public void setFrete(double preco) {
+
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 	
 	public double calcular_frete(double distancia) {
-				
-		return distancia * this.preco;
+		
+		return distancia * 10;
+		
 	}
 	
 }

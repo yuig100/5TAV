@@ -1,44 +1,76 @@
 package com.tav.bazar.model;
 
-public class Pedidos {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Pedidos")
+public class Pedidos implements Serializable {
 	
+    private static final long serialVersionUID = 1L;
+    
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	int idCliente;
-	double valorTotal;
-	int idEntrega;
 	
-	public Pedidos(int id, int idCliente, double valorTotal, int idEntrega) {
+	@ManyToOne
+	@JoinColumn(name="id_clientes",nullable = true)
+	Clientes clientes;
+	
+	@Column(name="valorTotal")
+	double valorTotal;
+	
+	@OneToOne
+	@JoinColumn(name="id_entrega",nullable = true)
+	Entrega entrega;
+
+	public Pedidos(int id, Clientes clientes, double valorTotal, Entrega entrega) {
 		super();
 		this.id = id;
-		this.idCliente = idCliente;
+		this.clientes = clientes;
 		this.valorTotal = valorTotal;
-		this.idEntrega = idEntrega;
+		this.entrega = entrega;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdCliente() {
-		return idCliente;
+
+	public Clientes getClientes() {
+		return clientes;
 	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
 	}
+
 	public double getValorTotal() {
 		return valorTotal;
 	}
+
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	public int getIdEntrega() {
-		return idEntrega;
+
+	public Entrega getEntrega() {
+		return entrega;
 	}
-	public void setIdEntrega(int idEntrega) {
-		this.idEntrega = idEntrega;
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
 	}
-	
-	
 	
 }

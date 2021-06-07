@@ -1,83 +1,89 @@
 package com.tav.bazar.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
-public class Carrinho {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Carrinho")
+public class Carrinho  implements Serializable {
 	
+    private static final long serialVersionUID = 1L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
+	
+	@Column(name="data_compra")
 	Date dataCompra;
-	double valorTotal;
-	double frete;
 	
-	List<Produtos> fgh;
+	@Column(name="valor")
+	double valor;
 	
-	public Carrinho(int id, Date dataCompra, double valorTotal, double frete) {
+	@OneToOne
+	@JoinColumn(name="id_frete",nullable = true)
+	Frete frete;
+		
+	@ManyToOne
+	@JoinColumn(name="id_clientes",nullable = true)
+	Clientes clientes;
+
+	public Carrinho(int id, Date dataCompra, double valor, Frete frete, Clientes clientes) {
 		super();
 		this.id = id;
 		this.dataCompra = dataCompra;
-		this.valorTotal = valorTotal;
+		this.valor = valor;
 		this.frete = frete;
+		this.clientes = clientes;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Date getDataCompra() {
 		return dataCompra;
 	}
-	
+
 	public void setDataCompra(Date dataCompra) {
 		this.dataCompra = dataCompra;
 	}
-	
-	public double getValorTotal() {
-		return valorTotal;
+
+	public double getValor() {
+		return valor;
 	}
-	
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
+
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
-	
-	public double getFrete() {
+
+	public Frete getFrete() {
 		return frete;
 	}
-	
-	public void setFrete(double frete) {
+
+	public void setFrete(Frete frete) {
 		this.frete = frete;
 	}
 
-	public List<Produtos> getFgh() {
-		return fgh;
+	public Clientes getClientes() {
+		return clientes;
 	}
 
-	public void setFgh(List<Produtos> fgh) {
-		this.fgh = fgh;
-	}
-	
-	public void inserir_carrinho(Produtos produto) {
-		
-		List<Produtos> list = new LinkedList<Produtos>();
-		list.add(produto);
-		
-		this.fgh = list;
-		
-		if(this.valorTotal == 0) {
-			
-			this.setValorTotal(produto.preco);
-			
-		} else {
-			
-			this.setValorTotal(this.valorTotal + produto.preco);
-			
-		}
-		
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
 	}
 	
 }

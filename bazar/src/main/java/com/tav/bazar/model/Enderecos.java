@@ -1,34 +1,51 @@
 package com.tav.bazar.model;
 
-public class Enderecos {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Enderecos")
+public class Enderecos implements Serializable {
 	
-	int id_Cliente;
-	int id_Entrega;
-	int id_Pedidos;
+    private static final long serialVersionUID = 1L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	int id;
+	
+	@Column(name="endereco")
 	String endereco;
 	
-	public Enderecos(int id_Cliente, int id_Entrega,int id_Pedidos ,String endereco) {
+	@OneToOne
+	@JoinColumn(name="id_clientes",nullable = true)
+	Clientes clientes;
+	
+	@OneToOne
+	@JoinColumn(name="id_entrega",nullable = true)
+	Entrega entrega;
+
+	public Enderecos(int id, String endereco, Clientes clientes, Entrega entrega) {
 		super();
-		this.id_Cliente = id_Cliente;
-		this.id_Entrega = id_Entrega;
-		this.id_Pedidos = id_Pedidos;
+		this.id = id;
 		this.endereco = endereco;
+		this.clientes = clientes;
+		this.entrega = entrega;
 	}
 
-	public int getId_Cliente() {
-		return id_Cliente;
+	public int getId() {
+		return id;
 	}
 
-	public void setId_Cliente(int id_Cliente) {
-		this.id_Cliente = id_Cliente;
-	}
-
-	public int getId_Entrega() {
-		return id_Entrega;
-	}
-
-	public void setId_Entrega(int id_Entrega) {
-		this.id_Entrega = id_Entrega;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getEndereco() {
@@ -39,14 +56,21 @@ public class Enderecos {
 		this.endereco = endereco;
 	}
 
-	public int getId_Pedidos() {
-		return id_Pedidos;
+	public Clientes getClientes() {
+		return clientes;
 	}
 
-	public void setId_Pedidos(int id_Pedidos) {
-		this.id_Pedidos = id_Pedidos;
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
 	}
-	
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
 	
 	
 }

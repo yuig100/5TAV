@@ -1,17 +1,38 @@
 package com.tav.bazar.model;
 
-public class Pagamento {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Pagamento")
+public class Pagamento  implements Serializable {
 	
+    private static final long serialVersionUID = 1L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	int id_Cliente;
-	int id_Pedidos;
 	
-	public Pagamento(int id, int id_Cliente, int id_Pedidos) {
+	@OneToOne
+	@JoinColumn(name="id_clientes",nullable = true)
+	Clientes clientes;
+	
+	@OneToOne
+	@JoinColumn(name="id_pedidos",nullable = true)
+	Pedidos pedidos;
+
+	public Pagamento(int id, Clientes clientes, Pedidos pedidos) {
 		super();
 		this.id = id;
-		this.id_Cliente = id_Cliente;
-		this.id_Pedidos = id_Pedidos;
-
+		this.clientes = clientes;
+		this.pedidos = pedidos;
 	}
 
 	public int getId() {
@@ -22,30 +43,21 @@ public class Pagamento {
 		this.id = id;
 	}
 
-	public int getId_Cliente() {
-		return id_Cliente;
+	public Clientes getClientes() {
+		return clientes;
 	}
 
-	public void setId_Cliente(int id_Cliente) {
-		this.id_Cliente = id_Cliente;
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
 	}
 
-	public int getId_Pedidos() {
-		return id_Pedidos;
+	public Pedidos getPedidos() {
+		return pedidos;
 	}
 
-	public void setId_Pedidos(int id_Pedidos) {
-		this.id_Pedidos = id_Pedidos;
+	public void setPedidos(Pedidos pedidos) {
+		this.pedidos = pedidos;
 	}
-
-
-	public double fazer_pagamento(Carrinho carrinho) {
-		
-		
-		double total_a_pagar=carrinho.valorTotal + carrinho.frete;
-		
-		return total_a_pagar;
-		
-	}
+	
 	
 }
