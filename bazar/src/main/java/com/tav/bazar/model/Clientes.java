@@ -53,6 +53,10 @@ public class Clientes implements Serializable {
 		this.carrinho = carrinho;
 	}
 
+	public Clientes() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}

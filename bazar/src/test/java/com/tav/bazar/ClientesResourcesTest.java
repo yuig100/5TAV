@@ -1,5 +1,7 @@
 package com.tav.bazar;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,15 +10,40 @@ import java.sql.Statement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.tav.bazar.Repository.ClientesRepository;
+import com.tav.bazar.model.Clientes;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class ClientesResourcesTest extends BazarApplicationTests{
 	
-	//private MockMvc mockMvc;
+	@MockBean
+	ClientesRepository clientesrepository;
 	
 	@Autowired
-	ClientesRepository clientesrepository;
+	private MockMvc mockMvc;
+	
+	@Autowired
+	private TestRestTemplate restTemplate;
+	
+	@TestConfiguration
+	static class Config{
+		
+		public RestTemplateBuilder restTemplateBuilder() {
+			
+			return new RestTemplateBuilder().basicAuthentication("root", "");
+			
+		}
+		
+	}
 	
 	@Test
 	public void criarClientes() throws Exception {
@@ -66,9 +93,41 @@ public class ClientesResourcesTest extends BazarApplicationTests{
 		Assertions.assertNotNull(resultSet);
 		
 		stmt.executeUpdate("DELETE FROM `teste`.`clientes` WHERE (`id` = '99999')");
-		
+			
 		connection.close();
 		stmt.close();
+		
+	}
+	
+	@Test
+	public void criar_clientes_repository() {
+		
+		int id = 9999;
+		
+		String name = "Pedro";
+		
+		Clientes clientes = new Clientes(id, name, null, null, null, null);
+		
+		clientesrepository.save(clientes);
+				
+		assertThat(clientes.getNome()).isEqualTo(name);
+		
+	}
+	
+	@Test
+	public void update_clientes_repository() {
+		
+		int id = 9999;
+		
+		String name = "Pedro";
+		
+		Clientes clientes = new Clientes(id, name, null, null, null, null);
+		
+		clientesrepository.save(clientes);
+		
+		clientes.setNome("Lucas");
+		
+		assertThat(clientes.getNome()).isEqualTo("Lucas");
 		
 	}
 	

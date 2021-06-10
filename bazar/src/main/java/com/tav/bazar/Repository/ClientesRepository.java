@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tav.bazar.model.Clientes;
 
-public interface ClientesRepository  extends JpaRepository<Clientes,Integer>{
+public interface ClientesRepository  extends JpaRepository<Clientes,Long>{
 
 	<ClieMod extends Clientes>ClieMod save(ClieMod entity);
 	
