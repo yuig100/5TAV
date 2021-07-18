@@ -1,0 +1,22 @@
+<!DOCKTYPE html>
+<html>
+<head>
+<title>Aprovar Orcamento</title>
+</head>
+<body>
+	<h1>Aprovar Orcamento</h1>
+	<form name='regForm' action="#" th:action="@{/pedido_aprovacao/process}" th:object="${pedido_aprovacao}" method="post">
+		
+		Data do Pedido: <input type="date" th:field="*{data_pedido}"/>
+		<span th:if="${#fields.hasErrors('data_pedido')}" th:errors="*{data_pedido}"></span>
+		Data da Aprovacao: <input type="date" th:field="*{data_resposta}"/>
+		<span th:if="${#fields.hasErrors('data_resposta')}" th:errors="*{data_resposta}"></span>
+		Descricao: <input type="text" th:field="*{descricao}"/>
+		<span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+		Aprovacao: <input type="checkbox" th:field="*{aprovacao}"/>
+		<span th:if="${#fields.hasErrors('aprovacao')}" th:errors="*{aprovacao}"></span>
+		
+		<button type="submit">Salvar</button>
+	</form>
+</body>
+</html>
