@@ -1,0 +1,32 @@
+<!DOCKTYPE html>
+<html>
+<head>
+<title>Cadatro de Cliente</title>
+</head>
+<body>
+	<h1>Cadastro de Cliente</h1>
+	<form name='regForm' action="#" th:action="@{/process}" th:object="${cliente}" method="post">
+		User: <input type="text" th:field="*{user}"/>
+		<span th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></span>
+		Senha: <input type="text" th:field="*{senha}"/>
+		<span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+		Nome: <input type="text" th:field="*{nome}"/>
+		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		CPF: <input type="text" th:field="*{cpf}"/>
+		<span th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+		Data: <input type="date" th:field="*{data_nascimento}"/>
+		<span th:if="${#fields.hasErrors('data_nascimento')}" th:errors="*{data_nascimento}"></span>
+		Dependente: <input type="checkbox" th:field="*{dependente}"/>
+		<span th:if="${#fields.hasErrors('dependente')}" th:errors="*{dependente}"></span>
+		Nome do Plano de Saude: <input type="text" th:field="*{nome_plano_saude}"/>
+		<span th:if="${#fields.hasErrors('nome_plano_saude')}" th:errors="*{nome_plano_saude}"></span>
+		Numero do prontuario: <input type="text" th:field="*{numero_prontuario}"/>
+		<span th:if="${#fields.hasErrors('numero_prontuario')}" th:errors="*{numero_prontuario}"></span>
+		Plano de Saude: <input type="checkbox" th:field="*{plano_saude}"/>
+		<span th:if="${#fields.hasErrors('plano_saude')}" th:errors="*{plano_saude}"></span>
+		Tipo do Plano de Saude: <input type="text" th:field="*{tipo_plano_saude}"/>
+		<span th:if="${#fields.hasErrors('tipo_plano_saude')}" th:errors="*{tipo_plano_saude}"></span>
+		<button type="submit">Salvar</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCKTYPE html>
+<html>
+<head>
+<title>Cadatro de Procedimento</title>
+</head>
+<body>
+	<h1>Cadastro de Procedimento</h1>
+	<form name='regForm' action="#" th:action="@{/orcamento/process}" th:object="${orcamento}" method="post">
+		Data da Avaliacao: <input type="date" th:field="*{data_avaliacao}"/>
+		<span th:if="${#fields.hasErrors('data_avaliacao')}" th:errors="*{data_avaliacao}"></span>
+		Descricao: <input type="text" th:field="*{descricao}"/>
+		<span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+		
+		Procedimento:
+		<select th:field="*{id_procedimento}">
+   		 <option th:value="Dentario" th:text="Dente"></option>
+   		 <option th:value="Protese" th:text="Protese"></option>
+		</select>
+		<input type="checkbox" th:field="*{id_procedimento}"/>
+		<span th:if="${#fields.hasErrors('id_procedimento')}" th:errors="*{id_procedimento}"></span>
+		
+		Assinatura do Dentista: <input type="text" th:field="*{assinatura_dentista}"/>
+		<span th:if="${#fields.hasErrors('assinatura_dentista')}" th:errors="*{assinatura_dentista}"></span>
+		<button type="submit">Salvar</button>
+	</form>
+</body>
+</html>
